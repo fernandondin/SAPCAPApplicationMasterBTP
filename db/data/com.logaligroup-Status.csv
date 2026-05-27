@@ -1,4 +1,4 @@
-code;name;descr
-InStock;In Stock;
-OutOfStock;Out of Stock;
-LowAvailability;Low Availability;
+code;name;criticality
+InStock;In Stock;3
+OutOfStock;Out of Stock;1
+LowAvailability;Low Availability;2

@@ -104,4 +104,5 @@ entity Status : CodeList {
             OutOfStock = 'Out of Stock';
             LowAvailability = 'Low Availability';
         };
+    criticality: Int16;
 };
