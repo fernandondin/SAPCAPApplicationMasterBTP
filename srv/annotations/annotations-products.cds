@@ -1,7 +1,14 @@
 using {Products as myservice} from '../service';
 using from './annotations-suppliers';
+using from './annotations-reviews';
+using from './annotetions-inventories';
+using from './anotations-sales';
+
+annotate myservice.Products with @odata.draft.enabled;
+
 
 annotate myservice.Products with {
+    image       @title: 'Image' @UI.IsImage;
     product     @title: 'Product';
     productName @title: 'Product Name';
     description @title: 'Description';
@@ -87,6 +94,10 @@ annotate myservice.Products with @(
     },
     UI.LineItem             : [
         {
+            $Type : 'UI.DataField',
+            Value : image,
+        },
+        {
             $Type: 'UI.DataField',
             Value: product,
         },
@@ -102,10 +113,6 @@ annotate myservice.Products with @(
             $Type : 'UI.DataFieldForAnnotation',
             Target: 'supplier/@Communication.Contact',
             Label : 'Supplier'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: supplier.supplierName,
         },
         {
             $Type             : 'UI.DataField',
@@ -148,6 +155,17 @@ annotate myservice.Products with @(
         Title        : 'Price'
     },
 
+    UI.FieldGroup #Picture :{
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : image,
+                Label: ''
+            },
+        ]
+    },
+
     UI.FieldGroup #Group_H_A: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -182,6 +200,10 @@ annotate myservice.Products with @(
         }],
     },
     UI.HeaderFacets         : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.FieldGroup#Picture',
+        },
         {
             $Type : 'UI.ReferenceFacet',
             Target: '@UI.FieldGroup#Group_H_A',
@@ -250,21 +272,60 @@ annotate myservice.Products with @(
             },
         ],
     },
-    UI.Facets               : [
+    UI.Facets: [
+/*        {
+            $Type : 'UI.CollectionFacet',
+            Facets: [
+              {
+                    $Type : 'UI.ReferenceFacet',
+                    Target: '@UI.FieldGroup#Group_B_A',
+                    Label : 'Product Information'
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    Target: '@UI.FieldGroup#Group_B_B',
+                    Label : 'Product Details'
+                }
+            ],
+            Label : 'General Information',
+            ID : 'GeneralInformation'
+        }, */
         {
-        $Type : 'UI.CollectionFacet',
-        Facets: [
-            {
-                $Type : 'UI.ReferenceFacet',
-                Target: '@UI.FieldGroup#Group_B_A',
-                Label : 'Product Information'
-            },
-            {
-                $Type : 'UI.ReferenceFacet',
-                Target: '@UI.FieldGroup#Group_B_B',
-                Label : 'Technical Data'
-            }
-        ],
-        Label : 'General Information'
-    }, ],
+            $Type : 'UI.CollectionFacet',
+            Facets : [
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    Target : 'supplier/@UI.FieldGroup#SupplierInformation',
+                    Label : 'Information'
+                },
+                {
+                    $Type : 'UI.ReferenceFacet',
+                    Target : 'supplier/contact/@UI.FieldGroup#Contacts',
+                    Label : 'Contact Information'
+                },
+            ],
+            Label : 'Supplier Information',
+            ID: 'SupplierInformation'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.FieldGroup#Group_B_B',
+            Label : 'Product Details'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'toReviews/@UI.LineItem#Reviews',
+            Label : 'Reviews'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'toInventories/@UI.LineItem#Inventories',
+            Label : 'Inventories'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target : 'toSales/@UI.Chart',
+        },
+        
+    ],
 );

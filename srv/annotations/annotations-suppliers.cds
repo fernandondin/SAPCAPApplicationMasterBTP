@@ -1,4 +1,5 @@
 using {Products as myservice} from '../service';
+using from './annotations-contacts';
 
 annotate myservice.Suppliers with {
     ID           @title: 'Supplier';
@@ -15,6 +16,23 @@ annotate myservice.Suppliers with{
 };
 
 annotate myservice.Suppliers with @(
+    UI.FieldGroup #SupplierInformation : {
+        $Type: 'UI.FieldGroupType',
+        Data : [
+            {
+               $Type : 'UI.DataField',
+               Value : supplier 
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : supplierName,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : webAddress,
+            },
+        ],
+    },
     Communication.Contact : {
         $Type : 'Communication.ContactType',
         fn    : supplierName,

@@ -7,6 +7,9 @@ using {
 } from '@sap/cds/common';
 
 entity Products : cuid, managed {
+    image        : LargeBinary @Core.MediaType: imageType @Core.ContentDisposition.Filename: fileName;
+    imageType    : String @Core.IsMediaType;
+    fileName     : String;
     product      : String(10);
     productName  : String(40);
     description  : LargeString;
