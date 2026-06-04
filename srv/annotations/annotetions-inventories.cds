@@ -1,4 +1,4 @@
-using { Products as myservice } from '../service';
+using { ProductsService as myservice } from '../service';
 
 annotate myservice.Inventories with {
     stockNumber @title : 'Stock Number';
@@ -52,7 +52,14 @@ annotate myservice.Inventories with @(
             $Type : 'UI.DataField',
             Value : quantity,
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'ProductsService.setStock',
+            Label : 'Set Stock',
+            Inline: true
+        },
     ],
+
     UI.FieldGroup #InventoryInformation :{
         $Type : 'UI.FieldGroupType',
         Data : [

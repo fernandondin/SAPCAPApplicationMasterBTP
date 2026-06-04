@@ -1,11 +1,11 @@
-using {Products as myservice} from '../service';
+using {ProductsService as myservice} from '../service';
 using from './annotations-contacts';
 
 annotate myservice.Suppliers with {
-    ID           @title: 'Supplier';
-    supplier     @title: 'Supplier';
-    supplierName @title: 'Supplier Name';
-    webAddress   @title: 'Web Address';
+    ID           @title: 'Supplier' @Common.FieldControl : #ReadOnly;
+    supplier     @title: 'Supplier'@Common.FieldControl : #ReadOnly;
+    supplierName @title: 'Supplier Name'@Common.FieldControl : #ReadOnly;
+    webAddress   @title: 'Web Address'@Common.FieldControl : #ReadOnly;
 };
 
 annotate myservice.Suppliers with{

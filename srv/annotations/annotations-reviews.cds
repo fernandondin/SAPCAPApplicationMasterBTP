@@ -1,4 +1,4 @@
-using { Products as myservice } from '../service';
+using { ProductsService as myservice } from '../service';
 
 annotate myservice.Reviews with{
     date @title : 'Date';
@@ -41,13 +41,10 @@ annotate myservice.Reviews with @(
     UI.FieldGroup #ReviewInformation :{
         $Type : 'UI.FieldGroupType',
         Data : [
+            
             {
-                $Type : 'UI.DataFieldForAnnotation',
-                Target : '@UI.DataPoint#RatingReview',
-                @HTML5.CssDefaults :{
-                    $Type : 'HTML5.CssDefaultsType',
-                    width : '10rem',
-                }
+                $Type : 'UI.DataField',
+                Value : rating,
             },
             {
                 $Type : 'UI.DataField',

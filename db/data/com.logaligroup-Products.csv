@@ -1,4 +1,4 @@
-ID,product,productName,description,category_ID,subCategory_ID,statu_code,rating,price,currency,detail_ID,supplier_ID
+ID,product,productName,description,category_ID,subCategory_ID,statu_code,rating,price,currency_code,detail_ID,supplier_ID
 54244d10-5450-4fa3-b157-20f57943c812,IP13PM,iPhone 13 Pro Max,Apple iPhone 13 Pro Max with 128GB storage and A15 Bionic chip,b1a26d04-6c1a-4e93-933a-f65f90e2c03c,7ea8bbfa-3b32-4a0c-8f63-1e7d83334801,OutOfStock,4.16,1789.98,USD,54244d10-5450-4fa3-b157-20f57943c812,b7fa16c8-8d26-4b9b-9e8d-0d3d23ef5d4a
 740fc1ac-523a-4b2d-91cb-fc6f21833d6d,LGTV75,"LG OLED 75""",75-inch 4K Smart TV with AI ThinQ,29f5e94e-5c72-4ec2-94f1-35d9a09a34cb,94b0df62-28fb-4a0f-94dc-28ce68b303d6,OutOfStock,4.94,1586.96,USD,740fc1ac-523a-4b2d-91cb-fc6f21833d6d,ac978be1-18f3-4787-90d4-f181b7e99d2b
 c51c97f1-c98f-4f05-987f-8da22ed885bc,MBPA16,MacBook Pro M2,"Apple MacBook Pro 16"" M2 Chip with Retina display",d59ad002-8c3e-4dfb-8f67-82c0c3c270f1,6c79d7e5-478e-4199-a3aa-5d51a1f4f944,OutOfStock,4.54,2475.74,USD,c51c97f1-c98f-4f05-987f-8da22ed885bc,9be8a9ed-1c37-4c1f-b535-31c9e7d9c03d

@@ -1,4 +1,4 @@
-using {Products as myservice} from '../service';
+using {ProductsService as myservice} from '../service';
 
 annotate myservice.VH_SubCategories with {
     ID           @title: 'Categories';
