@@ -6,6 +6,7 @@ const { Readable } = require('node:stream');
 const { buffer: streamToBuffer } = require('node:stream/consumers');
 const { uploadImage, downloadImage, deleteImage } = require('./lib/dropbox');
 const { SELECT } = require('@sap/cds/lib/ql/cds-ql');
+const { register } = require('node:module');
 
 const isStream = (v) => v && (typeof v.pipe === 'function' || typeof v[Symbol.asyncIterator] === 'function');
 
@@ -114,7 +115,43 @@ module.exports = class ProductsService extends cds.ApplicationService {
             if (prev?.fileName) await deleteImage(prev.fileName);
         });
 
+        //Action
+        this.on('setStock', async (req) => {
+            // Products.satatu_code -> InStock, OutOfStock o LowAvailability
+            //quantity >= 300 -> InStock
+            //quantity = 0 --> OutOfStock
+            //quantity >=0 and <300 -> LowAvailability
 
+
+
+
+            const sProductId = req.params[0].ID;
+            const sInventoryId = req.params[1].ID;
+            const result = await SELECT.one.from(Inventories).columns('quantity').where({ ID: sInventoryId });
+            let newQuantity = 0;
+            if(req.data.option === 'A'){
+                newQuantity = result.quantity + req.data.amount;
+                await UPDATE(Inventories).set({quantity : newQuantity}).where({ID: sInventoryId});
+                if(newQuantity >= 300){
+                    await UPDATE(Products).set({statu_code : 'InStock'}).where({ID: sProductId});
+                } 
+                return req.info(200, `The amount ${req.data.amount} has been added to inventory ${sInventoryId}`);
+            } else if((result.quantity - req.data.amount) < 0){
+                return req.error(400, `There is no avaiability for the requested quantity`);
+            } else{
+                newQuantity = result.quantity - req.data.amount;
+                if(newQuantity === 0){
+                    await UPDATE(Products).set({statu_code : 'OutOfStock'}).where({ID: sProductId});
+                } else if(newQuantity < 300){
+                    await UPDATE(Products).set({statu_code : 'LowAvailability'}).where({ID: sProductId});
+                }
+                await UPDATE(Inventories).set({quantity : newQuantity}).where({ID: sInventoryId});
+                return req.info(200, `The amount ${req.data.amount} has been substracted from inventory ${sInventoryId}`);
+            }
+
+        });
+
+        //registerImageHandlers(this);
 
         return super.init();
     }

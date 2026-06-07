@@ -11,7 +11,19 @@ service ProductsService {
     entity Contacts         as projection on entities.Contacts;
     entity Reviews          as projection on entities.Reviews;
     entity Inventories      as projection on entities.Inventories actions{
+        @Common:{
+            SideEffects:{
+                $Type: 'Common.SideEffectsType',
+                TargetProperties:[
+                    'in/quantity'
+                ],
+                TargetEntities:[
+                    in.product
+                ]
+            }
+        }
         action setStock (
+            in: $self,
             option: dialog:myOption,
             amount: dialog:myAmount,
         )
